@@ -1,7 +1,7 @@
 ﻿---
 import Base from "../layouts/Base.astro";
 import events from "../content/timeline/events.json";
-import { base } from 'astro:config';
+const base = import.meta.env.BASE_URL;
 const years = Array.from(new Set(events.map((e:any) => new Date(e.date).getFullYear()))).sort((a,b)=>a-b);
 const grouped = years.map(y => ({ year: y, items: events.filter((e:any)=> new Date(e.date).getFullYear()===y) }));
 const toHref = (link:string) => link?.startsWith('http') ? link : `${base}${(link||'').replace(/^\//,'')}`;

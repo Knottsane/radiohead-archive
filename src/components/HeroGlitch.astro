@@ -1,7 +1,7 @@
 ﻿---
 import TapeFrame from "./TapeFrame.astro";
-import { base } from 'astro:config';
 const { headline = "RADIOHEAD", sub = "Archive & Lore" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 <section class="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
   <div class="absolute inset-0 -z-10">

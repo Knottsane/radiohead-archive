@@ -2,8 +2,8 @@
 import "../styles/base.css";
 import NoiseLayer from "../components/NoiseLayer.astro";
 import SEO from "../components/SEO.astro";
-import { base } from 'astro:config';
 const { title = "Radiohead Archive", description = "Unofficial archive & lore", image = "/og/default.svg", noindex = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 <html lang="en">
   <head>

@@ -1,7 +1,7 @@
 ﻿---
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import { base } from 'astro:config';
+const base = import.meta.env.BASE_URL;
 const lore = await getCollection("lore");
 ---
 <Base title="Lore • Radiohead Archive" description="Obscure trivia and atmospheric asides">
