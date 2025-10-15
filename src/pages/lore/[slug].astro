@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getEntryBySlug, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const lore = await getCollection('lore');
+  return lore.map((l) => ({ params: { slug: l.slug } }));
+}
+
+const { slug } = Astro.params; if (!slug) throw new Error("Missing slug");
+const entry = await getEntryBySlug("lore", slug); if (!entry) throw new Error("Lore not found");
+const { Content } = await entry.render();
+---
+<Base title={`${entry.data.title} • Lore`} description="Obscure trivia">
+  <article class="px-4 md:px-6 py-8 prose prose-invert max-w-3xl">
+    <h1>{entry.data.title}</h1>
+    <Content />
+  </article>
+</Base>

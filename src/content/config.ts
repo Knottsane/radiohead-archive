@@ -1,0 +1,4 @@
+﻿import { defineCollection, z } from 'astro:content';
+const albums = defineCollection({ type: 'content', schema: z.object({ title: z.string(), releaseDate: z.string(), label: z.string(), cover: z.string().optional(), hero: z.string().optional(), tracklist: z.array(z.string()).default([]), links: z.object({ spotify: z.string().optional(), youtube: z.string().optional(), wikipedia: z.string().optional(), }).partial().default({}), summary: z.string().optional(), seo: z.object({ title: z.string().optional(), description: z.string().optional(), image: z.string().optional(), }).partial().default({}), }) });
+const lore = defineCollection({ type: 'content', schema: z.object({ title: z.string(), tags: z.array(z.string()).default([]), secrecyLevel: z.enum(['low','medium','high']).default('low'), }) });
+export const collections = { albums, lore };

@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://radiohead-archive.example.com/sitemap-index.xml

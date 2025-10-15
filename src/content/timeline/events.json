@@ -1,0 +1,16 @@
+﻿[
+  { "date": "1985-01-01", "title": "Band forms as On A Friday", "description": "School friends in Abingdon begin rehearsing on Fridays.", "tags": ["misc"] },
+  { "date": "1991-12-01", "title": "Signed to EMI/Parlophone", "description": "Early demos lead to label deal.", "tags": ["misc"] },
+  { "date": "1992-09-21", "title": "Creep single", "description": "Breakout single introduces the band globally.", "tags": ["album"], "link": "/albums/ok-computer" },
+  { "date": "1993-02-22", "title": "Pablo Honey", "description": "Debut studio album release.", "tags": ["album"] },
+  { "date": "1995-03-13", "title": "The Bends", "description": "Sophomore album expands sound and acclaim.", "tags": ["album"] },
+  { "date": "1997-05-21", "title": "OK Computer", "description": "A milestone in alternative music.", "tags": ["album"], "link": "/albums/ok-computer" },
+  { "date": "1997-06-01", "title": "Against Demons Tour", "description": "Intensive touring cycle supporting OK Computer.", "tags": ["tour"] },
+  { "date": "2000-10-02", "title": "Kid A", "description": "Electronic textures and abstraction redefine expectations.", "tags": ["album"], "link": "/albums/kid-a" },
+  { "date": "2001-06-05", "title": "Amnesiac", "description": "Companion in feel, distinct in tone.", "tags": ["album"] },
+  { "date": "2003-06-09", "title": "Hail to the Thief", "description": "Politically charged and sprawling.", "tags": ["album"] },
+  { "date": "2007-10-10", "title": "In Rainbows (pay-what-you-want)", "description": "Bold release model, lush sonics.", "tags": ["album"], "link": "/albums/in-rainbows" },
+  { "date": "2008-05-01", "title": "In Rainbows Tour", "description": "Live arrangements deepen the material.", "tags": ["tour"] },
+  { "date": "2011-02-18", "title": "The King of Limbs", "description": "Loops, polyrhythms, and the newspaper album.", "tags": ["album"] },
+  { "date": "2016-05-08", "title": "A Moon Shaped Pool", "description": "Orchestral swells, emotional clarity.", "tags": ["album"] }
+]

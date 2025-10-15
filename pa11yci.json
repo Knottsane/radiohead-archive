@@ -1,0 +1,13 @@
+﻿{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "includeWarnings": true,
+    "timeout": 30000,
+    "chromeLaunchConfig": { "args": ["--no-sandbox"] }
+  },
+  "urls": [
+    "http://localhost:4321/",
+    "http://localhost:4321/timeline",
+    "http://localhost:4321/albums/ok-computer"
+  ]
+}

@@ -1,16 +1,27 @@
 ---
-
+import Base from "../layouts/Base.astro";
+import HeroGlitch from "../components/HeroGlitch.astro";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Radiohead Archive" description="Grunge/glitch atmospheric archive & lore">
+  <HeroGlitch headline="RADIOHEAD" sub="Archive // Lore // Signals" />
+  <section class="px-4 md:px-6 py-14 space-y-8">
+    <h2 class="text-xl md:text-2xl font-semibold">Signal/noise</h2>
+    <p class="max-w-2xl text-neutral-300">
+      An evolving, content-first archive of albums, tours, and obscure lore. Built for speed, accessibility, and texture. No autoplaying audio.
+    </p>
+    <div class="grid gap-6 md:grid-cols-3">
+      <a href="/timeline" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+        <h3 class="font-mono">Timeline</h3>
+        <p class="text-neutral-400">Scroll the eras, filter by albums or tours.</p>
+      </a>
+      <a href="/lore" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+        <h3 class="font-mono">Lore</h3>
+        <p class="text-neutral-400">ARG hints, trivia, and artifacts.</p>
+      </a>
+      <a href="/albums/ok-computer" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+        <h3 class="font-mono">Albums</h3>
+        <p class="text-neutral-400">Deep dives: metadata, tracks, live moments.</p>
+      </a>
+    </div>
+  </section>
+</Base>

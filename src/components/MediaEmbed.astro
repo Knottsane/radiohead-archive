@@ -1,0 +1,10 @@
+﻿---
+interface Props { provider: '"youtube"' | '"spotify"'; id: string; title: string; }
+const { provider, id, title } = Astro.props;
+const isYouTube = provider === 'youtube';
+const src = isYouTube ? `https://www.youtube-nocookie.com/embed/${id}?rel=0` : `https://open.spotify.com/embed/album/${id}?utm_source=generator`;
+---
+<div class="relative w-full overflow-hidden bg-black/40 border border-neutral-800 aspect-video">
+  <iframe src={src} title={title} loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="no-referrer" sandbox="allow-same-origin allow-scripts allow-presentation allow-popups" class="w-full h-full"></iframe>
+  <noscript><p><a href={src} target="_blank" rel="noopener noreferrer">{title} (open in new tab)</a></p></noscript>
+</div>

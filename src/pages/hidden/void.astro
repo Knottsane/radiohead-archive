@@ -1,0 +1,25 @@
+﻿---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="void • hidden" description="A faint signal in the noise" noindex={true}>
+  <section class="px-4 md:px-6 py-12">
+    <h1 class="text-2xl font-mono text-[color:var(--acid)]">terminal</h1>
+    <div id="term" class="mt-4 border border-neutral-800 bg-black/60 p-4 font-mono text-sm min-h-[240px]" role="region" aria-label="Fake terminal">
+      <div>&gt; help</div>
+      <div>Available: help, list, open [slug], clear</div>
+    </div>
+    <form id="term-form" class="mt-2 flex gap-2" onsubmit="return false;">
+      <label class="sr-only" for="cmd">Command</label>
+      <input id="cmd" name="cmd" class="flex-1 px-3 py-2 bg-neutral-900 border border-neutral-800" placeholder="type 'list' or 'open ok-computer'" />
+      <button class="px-3 py-2 bg-[color:var(--acid)] text-black">Run</button>
+    </form>
+  </section>
+  <script type="module">
+    const term = document.getElementById('term');
+    const form = document.getElementById('term-form');
+    const input = document.getElementById('cmd');
+    const albums = ['ok-computer','kid-a','in-rainbows'];
+    function print(line){ const d=document.createElement('div'); d.textContent=line; term.appendChild(d); term.scrollTop=term.scrollHeight; }
+    form?.addEventListener('submit',()=>{ const v=input.value.trim(); print('> '+v); if(v==='help') print('help, list, open [slug], clear'); else if(v==='list') print('slugs: '+albums.join(', ')); else if(v.startsWith('open ')){ const s=v.split(' ')[1]; if(albums.includes(s)){ window.location.href='/albums/'+s; } else print('unknown slug'); } else if(v==='clear'){ term.innerHTML=''; } else print('unknown command'); input.value=''; });
+  </script>
+</Base>

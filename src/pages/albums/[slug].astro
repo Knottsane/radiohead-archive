@@ -1,0 +1,64 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection, getEntryBySlug } from "astro:content";
+import MediaEmbed from "../../components/MediaEmbed.astro";
+
+export async function getStaticPaths() {
+  const albums = await getCollection('albums');
+  return albums.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const { slug } = Astro.params; if (!slug) throw new Error("Missing slug");
+const entry = await getEntryBySlug("albums", slug); if (!entry) throw new Error("Album not found");
+const { Content } = await entry.render();
+const album = entry.data; const lore = await getCollection("lore");
+const related = lore.filter(l => l.data.tags.some(t => album.title.toLowerCase().includes(t) || (slug?.includes(t))));
+---
+<Base title={`${album.title} • Radiohead Archive`} description={album.summary ?? `Album: ${album.title}`} image={album.cover}>
+  <article class="px-4 md:px-6 py-8 grid gap-8 md:grid-cols-[300px,1fr]">
+    <div>
+      {album.cover ? <img src={album.cover} alt={`${album.title} placeholder cover`} class="w-full h-auto border border-neutral-800" loading="lazy" decoding="async" /> : <div class="w-full aspect-square bg-neutral-900 border border-neutral-800"></div>}
+      <div class="mt-3 text-sm text-neutral-400">
+        <div><strong>Released:</strong> {new Date(album.releaseDate).toDateString()}</div>
+        <div><strong>Label:</strong> {album.label}</div>
+      </div>
+      <div class="mt-3 text-sm space-y-1">
+        {album.links?.wikipedia && <a class="underline link-chroma block" href={album.links.wikipedia} target="_blank" rel="noopener">Wikipedia</a>}
+        {album.links?.spotify && <a class="underline link-chroma block" href={album.links.spotify} target="_blank" rel="noopener">Spotify</a>}
+        {album.links?.youtube && <a class="underline link-chroma block" href={album.links.youtube} target="_blank" rel="noopener">YouTube</a>}
+      </div>
+    </div>
+    <div class="prose prose-invert max-w-none">
+      <h1 class="text-3xl md:text-4xl font-semibold">{album.title}</h1>
+      <Content />
+      {album.tracklist?.length > 0 && (
+        <section class="mt-8">
+          <h2 class="font-mono text-neutral-300">Tracklist</h2>
+          <ol class="list-decimal pl-6">
+            {album.tracklist.map(t => <li>{t}</li>)}
+          </ol>
+        </section>
+      )}
+      {album.links?.youtube && (
+        <section class="mt-8">
+          <h2 class="font-mono text-neutral-300">Watch</h2>
+          <MediaEmbed provider="youtube" id={(album.links.youtube.split('v=')[1] || '').split('&')[0]} title={`${album.title} video`} />
+        </section>
+      )}
+      {album.links?.spotify && (
+        <section class="mt-8">
+          <h2 class="font-mono text-neutral-300">Listen</h2>
+          <MediaEmbed provider="spotify" id={(album.links.spotify.split('/album/')[1] || '').split('?')[0]} title={`${album.title} on Spotify`} />
+        </section>
+      )}
+      {related.length > 0 && (
+        <section class="mt-8">
+          <h2 class="font-mono text-neutral-300">Related lore</h2>
+          <ul class="list-disc pl-6">
+            {related.map(r => <li><a class="underline link-chroma" href={`/lore/${r.slug}`}>{r.data.title}</a></li>)}
+          </ul>
+        </section>
+      )}
+    </div>
+  </article>
+</Base>

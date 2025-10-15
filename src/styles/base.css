@@ -1,0 +1,17 @@
+﻿@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root { --bg:#0a0a0a; --fg:#e5e5e5; --acid:#aaff00; --crimson:#b80f0a; --grain-opacity:0.12; --scanline-opacity:0.05; --scanline-size:2px; }
+html,body{height:100%;background-color:var(--bg);color:var(--fg);font-feature-settings:'ss01' on,'ss02' on}
+@supports (view-transition-name: page){:root{view-transition-name:page}}
+:focus-visible{outline:2px dashed var(--acid);outline-offset:2px}
+@keyframes glitchShift{0%{transform:translate(0,0);filter:none}20%{transform:translate(-1px,.5px);filter:hue-rotate(10deg)}40%{transform:translate(1px,-.5px);filter:contrast(110%)}60%{transform:translate(-.5px,1px);filter:saturate(120%)}80%{transform:translate(.5px,-1px);filter:hue-rotate(-10deg)}100%{transform:translate(0,0);filter:none}}
+::view-transition-old(page),::view-transition-new(page){animation:glitchShift 350ms ease-in-out both}
+@media (prefers-reduced-motion:reduce){::view-transition-old(page),::view-transition-new(page){animation:opacityFade 200ms ease-in-out both} @keyframes glitchShift{from{opacity:0}to{opacity:1}}}
+.scramble-acid:hover{text-shadow:-.5px 0 var(--acid), .5px 0 var(--crimson)}
+.scanlines{background-image:url('/textures/scanlines.svg');background-size:100% var(--scanline-size);opacity:var(--scanline-opacity);pointer-events:none}
+.sr-only-focusable:not(:focus):not(:focus-within){position:absolute!important;width:1px;height:1px;margin:-1px;border:0;padding:0;white-space:nowrap;clip-path:inset(50%);clip:rect(0 0 0 0);overflow:hidden}
+.link-chroma{position:relative}
+.link-chroma:hover{text-shadow:-1px 0 var(--acid),1px 0 var(--crimson)}
+.tape-edge{box-shadow:var(--tape-shadow,0 2px 0 rgba(0,0,0,.6))}
+.noise-blend{mix-blend-mode:overlay;opacity:var(--grain-opacity)}

@@ -1,0 +1,47 @@
+﻿---
+import Base from "../layouts/Base.astro";
+import events from "../content/timeline/events.json";
+const years = Array.from(new Set(events.map((e:any) => new Date(e.date).getFullYear()))).sort((a,b)=>a-b);
+const grouped = years.map(y => ({ year: y, items: events.filter((e:any)=> new Date(e.date).getFullYear()===y) }));
+---
+<Base title="Timeline • Radiohead Archive" description="Horizontally scrolling history with keyboard and filter controls" image="/og/default.svg">
+  <section class="px-4 md:px-6 py-6 space-y-4">
+    <h1 class="text-2xl md:text-3xl font-semibold">Timeline</h1>
+    <nav aria-label="Years" class="flex gap-3 overflow-x-auto py-2">
+      {grouped.map(g => <a class="text-sm hover:text-[color:var(--acid)]" href={`#y-${g.year}`}>{g.year}</a>)}
+    </nav>
+    <form id="timeline-filters" class="flex flex-wrap items-center gap-4 text-sm" aria-label="Filters">
+      <label class="inline-flex items-center gap-2"><input type="checkbox" value="album" checked /> Albums</label>
+      <label class="inline-flex items-center gap-2"><input type="checkbox" value="tour" checked /> Tours</label>
+      <label class="inline-flex items-center gap-2"><input type="checkbox" value="misc" checked /> Misc</label>
+    </form>
+    <div id="timeline" role="region" aria-label="Timeline events" class="mt-4 overflow-x-auto flex gap-4 snap-x snap-mandatory pb-8">
+      {grouped.map(g => (
+        <div id={`y-${g.year}`} class="min-w-[10ch] sticky left-0 bg-[color:var(--bg)]/95 p-2 border-r border-neutral-800">
+          <div class="font-mono text-neutral-400">{g.year}</div>
+        </div>
+      ))}
+      {events.map((e:any) => (
+        <article data-event data-tags={e.tags.join(',')} class="min-w-[280px] max-w-[320px] snap-start border border-neutral-800 p-4 bg-black/40">
+          <h3 class="font-mono text-[color:var(--acid)]">{e.title}</h3>
+          <time class="text-xs text-neutral-400">{new Date(e.date).toDateString()}</time>
+          <p class="mt-2 text-sm text-neutral-200">{e.description}</p>
+          {e.link && <p class="mt-2 text-sm"><a class="link-chroma underline" href={e.link}>More</a></p>}
+        </article>
+      ))}
+    </div>
+    <noscript>
+      <div class="mt-8 space-y-6">
+        {grouped.map(g => (
+          <section>
+            <h2 id={`ns-${g.year}`} class="font-mono text-neutral-400">{g.year}</h2>
+            <ul class="list-disc pl-6">
+              {g.items.map((e:any) => <li><strong>{e.title}</strong> — {e.description}</li>)}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </noscript>
+  </section>
+  <script type="module">import { mountTimeline } from "../components/Timeline.ts"; mountTimeline();</script>
+</Base>

@@ -1,0 +1,6 @@
+﻿type Tag = '"album"'|'"tour"'|'"misc"';
+export function mountTimeline(){
+  const container=document.querySelector<HTMLElement>('#timeline'); const filterForm=document.querySelector<HTMLFormElement>('#timeline-filters'); if(!container||!filterForm) return;
+  container.tabIndex=0; container.addEventListener('keydown',(e)=>{ const dir=(e.key==='ArrowRight'||e.key==='ArrowDown')?1:(e.key==='ArrowLeft'||e.key==='ArrowUp')?-1:0; if(dir===0) return; e.preventDefault(); const cards=Array.from(container.querySelectorAll<HTMLElement>('[data-event]')).filter(c=>c.offsetParent!==null); const x=container.scrollLeft; const widths=cards.map(c=>c.offsetLeft); const idx=widths.findIndex(w=>w>x+10); const nextIdx=Math.max(0,Math.min(cards.length-1,(idx===-1?cards.length-1:idx)+dir)); cards[nextIdx]?.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'}); });
+  filterForm.addEventListener('change',()=>{ const enabled=new Set(Array.from(filterForm.querySelectorAll('input[type="checkbox"]:checked')).map(i=>(i as HTMLInputElement).value as Tag)); const cards=Array.from(container.querySelectorAll<HTMLElement>('[data-tags]')); for(const card of cards){ const tags=(card.dataset.tags||'').split(','); const show=tags.some(t=>enabled.has(t as Tag)); card.hidden=!show; } });
+}

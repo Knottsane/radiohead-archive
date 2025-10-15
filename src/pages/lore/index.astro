@@ -1,0 +1,19 @@
+﻿---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+const lore = await getCollection("lore");
+---
+<Base title="Lore • Radiohead Archive" description="Obscure trivia and atmospheric asides">
+  <section class="px-4 md:px-6 py-8">
+    <h1 class="text-2xl md:text-3xl font-semibold">Lore</h1>
+    <ul class="mt-6 grid gap-4 md:grid-cols-2">
+      {lore.map(item => (
+        <li class="border border-neutral-800 p-4 bg-black/40">
+          <a class="text-lg underline link-chroma" href={`/lore/${item.slug}`}>{item.data.title}</a>
+          <div class="text-xs text-neutral-400 mt-1">Secrecy: {item.data.secrecyLevel}</div>
+          {item.data.tags?.length > 0 && <div class="mt-2 text-xs">Tags: {item.data.tags.join(', ')}</div>}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
