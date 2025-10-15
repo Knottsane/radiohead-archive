@@ -21,7 +21,7 @@ html,body{height:100%;background-color:var(--bg);color:var(--fg);font-feature-se
 @keyframes rainbowShift{to{background-position:200% 0}}
 .rainbow-anim{background-size:200% 100%;animation:rainbowShift 8s linear infinite}
 .rainbow-border{position:relative}
-.rainbow-border::before{content:"";position:absolute;inset:-1px;border-radius:8px;background:linear-gradient(90deg,var(--ir-red),var(--ir-orange),var(--ir-yellow),var(--ir-green),var(--ir-cyan),var(--ir-blue),var(--ir-violet));-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1px;display:block}
+.rainbow-border::before{content:"";position:absolute;inset:-1px;border-radius:8px;background:linear-gradient(90deg,var(--ir-red),var(--ir-orange),var(--ir-yellow),var(--ir-green),var(--ir-cyan),var(--ir-blue),var(--ir-violet));background-size:200% 100%;animation:rainbowShift 10s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1px;display:block}
 
 /* Text accents */
 .scramble-acid:hover{text-shadow:-.5px 0 var(--ir-green), .5px 0 var(--ir-orange)}
@@ -31,6 +31,8 @@ html,body{height:100%;background-color:var(--bg);color:var(--fg);font-feature-se
 /* Surfaces */
 .card{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:8px;transition:transform .2s ease,border-color .2s ease}
 .card:hover{transform:translateY(-2px);border-color:var(--ir-yellow)}
+.card-appear{opacity:0;transform:translateY(8px);animation:cardIn .7s ease .05s both}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* Overlays */
 .scanlines{background-size:100% var(--scanline-size);opacity:var(--scanline-opacity);pointer-events:none}
@@ -43,3 +45,7 @@ html,body{height:100%;background-color:var(--bg);color:var(--fg);font-feature-se
 .hide-scroll::-webkit-scrollbar{display:none}
 .hide-scroll{-ms-overflow-style:none;scrollbar-width:none}
 .tape-edge{box-shadow:var(--tape-shadow,0 2px 0 rgba(0,0,0,.6))}
+
+/* Animated spectrum background */
+.bg-spectrum{background:conic-gradient(from 0deg at 50% 50%, var(--ir-red), var(--ir-orange), var(--ir-yellow), var(--ir-green), var(--ir-cyan), var(--ir-blue), var(--ir-violet), var(--ir-red));animation:spectrumFlow 18s linear infinite}
+@keyframes spectrumFlow{to{transform:rotate(1turn)}}

@@ -19,17 +19,19 @@ const toHref = (link:string) => link?.startsWith('http') ? link : `${base}${(lin
     </form>
 <div id="timeline" role="region" aria-label="Timeline events" class="mt-4 overflow-x-auto hide-scroll flex gap-4 snap-x snap-mandatory pb-8">
       {grouped.map(g => (
-        <div id={`y-${g.year}`} class="min-w-[10ch] sticky left-0 bg-[color:var(--bg)]/95 p-2 border-r border-neutral-800">
-          <div class="font-mono text-neutral-400">{g.year}</div>
+        <div class="flex items-stretch gap-4">
+          <div id={`y-${g.year}`} class="min-w-[8ch] sticky left-0 self-start bg-[color:var(--bg)]/95 p-2 border-r border-neutral-800">
+            <div class="font-mono text-neutral-400">{g.year}</div>
+          </div>
+          {g.items.map((e:any) => (
+<article data-event data-tags={e.tags.join(',')} class="min-w-[280px] max-w-[320px] snap-start p-4 card rainbow-border card-appear">
+              <h3 class="font-mono rainbow-text">{e.title}</h3>
+              <time class="text-xs text-neutral-400">{new Date(e.date).toDateString()}</time>
+              <p class="mt-2 text-sm text-neutral-200">{e.description}</p>
+              {e.link && <p class="mt-2 text-sm"><a class="link-chroma underline" href={toHref(e.link)}>More</a></p>}
+            </article>
+          ))}
         </div>
-      ))}
-      {events.map((e:any) => (
-<article data-event data-tags={e.tags.join(',')} class="min-w-[280px] max-w-[320px] snap-start p-4 card rainbow-border">
-<h3 class="font-mono rainbow-text">{e.title}</h3>
-          <time class="text-xs text-neutral-400">{new Date(e.date).toDateString()}</time>
-          <p class="mt-2 text-sm text-neutral-200">{e.description}</p>
-{e.link && <p class="mt-2 text-sm"><a class="link-chroma underline" href={toHref(e.link)}>More</a></p>}
-        </article>
       ))}
     </div>
     <noscript>
