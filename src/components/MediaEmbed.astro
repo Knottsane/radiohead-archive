@@ -1,10 +1,52 @@
-﻿---
-interface Props { provider: '"youtube"' | '"spotify"'; id: string; title: string; }
-const { provider, id, title } = Astro.props;
+---
+interface Props {
+  provider: 'youtube' | 'spotify';
+  id?: string; // video or album ID
+  url?: string; // full URL fallback
+  title: string;
+}
+const { provider, id, url, title } = Astro.props;
+
+function ytIdFrom(input?: string) {
+  if (!input) return undefined;
+  if (/^[\w-]{11}$/.test(input)) return input;
+  try {
+    const u = new URL(input);
+    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1);
+    const v = u.searchParams.get('v'); if (v) return v;
+    const m = u.pathname.match(/\/embed\/([\w-]{11})/); if (m) return m[1];
+  } catch {}
+  return undefined;
+}
+function spotifyAlbumId(input?: string) {
+  if (!input) return undefined;
+  if (/^[\w]{22}$/.test(input)) return input;
+  try {
+    const u = new URL(input);
+    const parts = u.pathname.split('/').filter(Boolean);
+    const i = parts.indexOf('album');
+    if (i >= 0 && parts[i+1]) return parts[i+1];
+  } catch {}
+  return undefined;
+}
+
 const isYouTube = provider === 'youtube';
-const src = isYouTube ? `https://www.youtube-nocookie.com/embed/${id}?rel=0` : `https://open.spotify.com/embed/album/${id}?utm_source=generator`;
+const finalId = isYouTube ? (id || ytIdFrom(url)) : (id || spotifyAlbumId(url));
+const src = isYouTube
+  ? (finalId ? `https://www.youtube-nocookie.com/embed/${finalId}?rel=0` : (url || ''))
+  : (finalId ? `https://open.spotify.com/embed/album/${finalId}?utm_source=generator` : (url || ''));
 ---
 <div class="relative w-full overflow-hidden bg-black/40 border border-neutral-800 aspect-video">
-  <iframe src={src} title={title} loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="no-referrer" sandbox="allow-same-origin allow-scripts allow-presentation allow-popups" class="w-full h-full"></iframe>
-  <noscript><p><a href={src} target="_blank" rel="noopener noreferrer">{title} (open in new tab)</a></p></noscript>
+  {src && <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    allow="autoplay; encrypted-media; picture-in-picture; web-share"
+    referrerpolicy="no-referrer"
+    sandbox="allow-same-origin allow-scripts allow-presentation allow-popups"
+    class="w-full h-full"
+  ></iframe>}
+  <noscript>
+    {src && <p><a href={src} target="_blank" rel="noopener noreferrer">{title} (open in new tab)</a></p>}
+  </noscript>
 </div>
