@@ -15,14 +15,17 @@ const base = import.meta.env.BASE_URL;
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body class="min-h-screen bg-[color:var(--bg)] text-[color:var(--fg)] font-sans antialiased">
-    <a href="#content" class="sr-only-focusable absolute left-2 top-2 bg-black/80 text-[color:var(--acid)] px-3 py-2 rounded">Skip to content</a>
+    <a href="#content" class="sr-only-focusable absolute left-2 top-2 bg-black/80 text-[color:var(--ir-yellow)] px-3 py-2 rounded">Skip to content</a>
 
-    <header class="px-4 md:px-6 py-4 flex items-center justify-between">
-<a class="text-lg md:text-xl link-chroma" href={base}>Radiohead Archive</a>
-      <nav class="flex gap-4 text-sm md:text-base">
-<a class="hover:text-[color:var(--acid)] link-chroma" href={`${base}timeline`}>Timeline</a>
-        <a class="hover:text-[color:var(--acid)] link-chroma" href={`${base}lore`}>Lore</a>
-      </nav>
+    <header class="sticky top-0 z-40 backdrop-blur bg-black/45 border-b border-white/10">
+      <div class="px-4 md:px-6 py-4 flex items-center justify-between">
+        <a class="text-lg md:text-xl rainbow-text rainbow-anim" href={base}>Radiohead Archive</a>
+        <nav class="flex gap-4 text-sm md:text-base">
+          <a class="hover:text-[color:var(--ir-yellow)] link-chroma" href={`${base}timeline`}>Timeline</a>
+          <a class="hover:text-[color:var(--ir-yellow)] link-chroma" href={`${base}lore`}>Lore</a>
+          <a class="hover:text-[color:var(--ir-yellow)] link-chroma" href={`${base}albums/ok-computer`}>Albums</a>
+        </nav>
+      </div>
     </header>
 
     <main id="content" class="relative">

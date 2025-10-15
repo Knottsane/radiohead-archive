@@ -16,9 +16,20 @@ const album = entry.data; const lore = await getCollection("lore");
 const related = lore.filter(l => l.data.tags.some(t => album.title.toLowerCase().includes(t) || (slug?.includes(t))));
 ---
 <Base title={`${album.title} • Radiohead Archive`} description={album.summary ?? `Album: ${album.title}`} image={album.cover}>
+  <section class="relative h-[28vh] md:h-[36vh] overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
+    {album.hero ? (
+      <img src={album.hero} alt="" class="w-full h-full object-cover opacity-60" loading="lazy" decoding="async" />
+    ) : (
+      <div class="absolute inset-0 opacity-35 blur-3xl" style={`background: radial-gradient(60% 60% at 50% 40%, var(--ir-orange), transparent 60%), radial-gradient(50% 60% at 30% 80%, var(--ir-blue), transparent 60%), radial-gradient(60% 50% at 70% 70%, var(--ir-green), transparent 60%)`}></div>
+    )}
+    <div class="absolute inset-x-0 bottom-6 px-4 md:px-6">
+      <h1 class="text-3xl md:text-5xl rainbow-text rainbow-anim">{album.title}</h1>
+    </div>
+  </section>
   <article class="px-4 md:px-6 py-8 grid gap-8 md:grid-cols-[300px,1fr]">
     <div>
-      {album.cover ? <img src={album.cover} alt={`${album.title} placeholder cover`} class="w-full h-auto border border-neutral-800" loading="lazy" decoding="async" /> : <div class="w-full aspect-square bg-neutral-900 border border-neutral-800"></div>}
+      {album.cover ? <img src={album.cover} alt={`${album.title} cover`} class="w-full h-auto border border-neutral-800 rainbow-border" loading="lazy" decoding="async" /> : <div class="w-full aspect-square bg-neutral-900 border border-neutral-800"></div>}
       <div class="mt-3 text-sm text-neutral-400">
         <div><strong>Released:</strong> {new Date(album.releaseDate).toDateString()}</div>
         <div><strong>Label:</strong> {album.label}</div>
@@ -30,7 +41,6 @@ const related = lore.filter(l => l.data.tags.some(t => album.title.toLowerCase()
       </div>
     </div>
     <div class="prose prose-invert max-w-none">
-      <h1 class="text-3xl md:text-4xl font-semibold">{album.title}</h1>
       <Content />
       {album.tracklist?.length > 0 && (
         <section class="mt-8">
@@ -56,7 +66,7 @@ const related = lore.filter(l => l.data.tags.some(t => album.title.toLowerCase()
         <section class="mt-8">
           <h2 class="font-mono text-neutral-300">Related lore</h2>
           <ul class="list-disc pl-6">
-{related.map(r => <li><a class="underline link-chroma" href={`${base}lore/${r.slug}`}>{r.data.title}</a></li>)}
+            {related.map(r => <li><a class="underline link-chroma" href={`${base}lore/${r.slug}`}>{r.data.title}</a></li>)}
           </ul>
         </section>
       )}
