@@ -1,8 +1,10 @@
 ﻿---
 import Base from "../layouts/Base.astro";
 import events from "../content/timeline/events.json";
+import { base } from 'astro:config';
 const years = Array.from(new Set(events.map((e:any) => new Date(e.date).getFullYear()))).sort((a,b)=>a-b);
 const grouped = years.map(y => ({ year: y, items: events.filter((e:any)=> new Date(e.date).getFullYear()===y) }));
+const toHref = (link:string) => link?.startsWith('http') ? link : `${base}${(link||'').replace(/^\//,'')}`;
 ---
 <Base title="Timeline • Radiohead Archive" description="Horizontally scrolling history with keyboard and filter controls" image="/og/default.svg">
   <section class="px-4 md:px-6 py-6 space-y-4">
@@ -26,7 +28,7 @@ const grouped = years.map(y => ({ year: y, items: events.filter((e:any)=> new Da
           <h3 class="font-mono text-[color:var(--acid)]">{e.title}</h3>
           <time class="text-xs text-neutral-400">{new Date(e.date).toDateString()}</time>
           <p class="mt-2 text-sm text-neutral-200">{e.description}</p>
-          {e.link && <p class="mt-2 text-sm"><a class="link-chroma underline" href={e.link}>More</a></p>}
+{e.link && <p class="mt-2 text-sm"><a class="link-chroma underline" href={toHref(e.link)}>More</a></p>}
         </article>
       ))}
     </div>

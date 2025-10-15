@@ -1,5 +1,6 @@
 ﻿---
 import TapeFrame from "./TapeFrame.astro";
+import { base } from 'astro:config';
 const { headline = "RADIOHEAD", sub = "Archive & Lore" } = Astro.props;
 ---
 <section class="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
@@ -11,13 +12,13 @@ const { headline = "RADIOHEAD", sub = "Archive & Lore" } = Astro.props;
     <h1 id="hero-headline" class="text-5xl md:text-7xl font-semibold tracking-tight scramble-acid">{headline}</h1>
     <p class="mt-3 text-base md:text-lg text-neutral-300">{sub}</p>
     <div class="mt-8 flex items-center justify-center gap-4">
-      <a class="px-4 py-2 bg-[color:var(--acid)] text-black font-mono" href="/timeline">Enter</a>
+<a class="px-4 py-2 bg-[color:var(--acid)] text-black font-mono" href={`${base}timeline`}>Enter</a>
       <a class="px-3 py-2 border border-neutral-700 hover:border-[color:var(--acid)]" href="#content">Skip intro</a>
     </div>
   </div>
 
   <TapeFrame />
-  <div class="scanlines absolute inset-0"></div>
+<div class="scanlines absolute inset-0" style={`background-image:url('${base}textures/scanlines.svg')`}></div>
 
   <script type="module">
     import { TextScramble } from "./TextScramble.ts";

@@ -1,4 +1,7 @@
-﻿<div aria-hidden="true" class="pointer-events-none absolute inset-0">
-  <img src="/textures/tape.svg" alt="" class="absolute left-4 top-6 w-28 opacity-60" loading="lazy" decoding="async" />
-  <img src="/textures/tape.svg" alt="" class="absolute right-6 bottom-8 w-24 rotate-12 opacity-50" loading="lazy" decoding="async" />
+---
+import { base } from 'astro:config';
+---
+<div aria-hidden="true" class="pointer-events-none absolute inset-0">
+  <img src={`${base}textures/tape.svg`} alt="" class="absolute left-4 top-6 w-28 opacity-60" loading="lazy" decoding="async" />
+  <img src={`${base}textures/tape.svg`} alt="" class="absolute right-6 bottom-8 w-24 rotate-12 opacity-50" loading="lazy" decoding="async" />
 </div>

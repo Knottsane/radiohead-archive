@@ -1,6 +1,7 @@
 ﻿---
 import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
+import { base } from 'astro:config';
 const lore = await getCollection("lore");
 ---
 <Base title="Lore • Radiohead Archive" description="Obscure trivia and atmospheric asides">
@@ -9,7 +10,7 @@ const lore = await getCollection("lore");
     <ul class="mt-6 grid gap-4 md:grid-cols-2">
       {lore.map(item => (
         <li class="border border-neutral-800 p-4 bg-black/40">
-          <a class="text-lg underline link-chroma" href={`/lore/${item.slug}`}>{item.data.title}</a>
+<a class="text-lg underline link-chroma" href={`${base}lore/${item.slug}`}>{item.data.title}</a>
           <div class="text-xs text-neutral-400 mt-1">Secrecy: {item.data.secrecyLevel}</div>
           {item.data.tags?.length > 0 && <div class="mt-2 text-xs">Tags: {item.data.tags.join(', ')}</div>}
         </li>

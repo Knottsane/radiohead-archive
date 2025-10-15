@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import { getCollection, getEntryBySlug } from "astro:content";
 import MediaEmbed from "../../components/MediaEmbed.astro";
+import { base } from 'astro:config';
 
 export async function getStaticPaths() {
   const albums = await getCollection('albums');
@@ -55,7 +56,7 @@ const related = lore.filter(l => l.data.tags.some(t => album.title.toLowerCase()
         <section class="mt-8">
           <h2 class="font-mono text-neutral-300">Related lore</h2>
           <ul class="list-disc pl-6">
-            {related.map(r => <li><a class="underline link-chroma" href={`/lore/${r.slug}`}>{r.data.title}</a></li>)}
+{related.map(r => <li><a class="underline link-chroma" href={`${base}lore/${r.slug}`}>{r.data.title}</a></li>)}
           </ul>
         </section>
       )}

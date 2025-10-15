@@ -9,7 +9,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://radiohead-archive.example.com',
+  site: 'https://knottsane.github.io',
+  base: '/radiohead-archive/',
   vite: {
     plugins: [tailwindcss()],
     build: { cssMinify: true }

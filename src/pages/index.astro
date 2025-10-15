@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import HeroGlitch from "../components/HeroGlitch.astro";
+import { base } from 'astro:config';
 ---
 <Base title="Radiohead Archive" description="Grunge/glitch atmospheric archive & lore">
   <HeroGlitch headline="RADIOHEAD" sub="Archive // Lore // Signals" />
@@ -10,15 +11,15 @@ import HeroGlitch from "../components/HeroGlitch.astro";
       An evolving, content-first archive of albums, tours, and obscure lore. Built for speed, accessibility, and texture. No autoplaying audio.
     </p>
     <div class="grid gap-6 md:grid-cols-3">
-      <a href="/timeline" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+<a href={`${base}timeline`} class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
         <h3 class="font-mono">Timeline</h3>
         <p class="text-neutral-400">Scroll the eras, filter by albums or tours.</p>
       </a>
-      <a href="/lore" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+<a href={`${base}lore`} class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
         <h3 class="font-mono">Lore</h3>
         <p class="text-neutral-400">ARG hints, trivia, and artifacts.</p>
       </a>
-      <a href="/albums/ok-computer" class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
+<a href={`${base}albums/ok-computer`} class="block p-5 border border-neutral-800 hover:border-[color:var(--acid)]">
         <h3 class="font-mono">Albums</h3>
         <p class="text-neutral-400">Deep dives: metadata, tracks, live moments.</p>
       </a>

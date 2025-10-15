@@ -1,5 +1,6 @@
-﻿---
+---
 import Base from "../../layouts/Base.astro";
+import { base } from 'astro:config';
 ---
 <Base title="void • hidden" description="A faint signal in the noise" noindex={true}>
   <section class="px-4 md:px-6 py-12">
@@ -18,8 +19,9 @@ import Base from "../../layouts/Base.astro";
     const term = document.getElementById('term');
     const form = document.getElementById('term-form');
     const input = document.getElementById('cmd');
+const BASE = `${base}`;
     const albums = ['ok-computer','kid-a','in-rainbows'];
     function print(line){ const d=document.createElement('div'); d.textContent=line; term.appendChild(d); term.scrollTop=term.scrollHeight; }
-    form?.addEventListener('submit',()=>{ const v=input.value.trim(); print('> '+v); if(v==='help') print('help, list, open [slug], clear'); else if(v==='list') print('slugs: '+albums.join(', ')); else if(v.startsWith('open ')){ const s=v.split(' ')[1]; if(albums.includes(s)){ window.location.href='/albums/'+s; } else print('unknown slug'); } else if(v==='clear'){ term.innerHTML=''; } else print('unknown command'); input.value=''; });
+    form?.addEventListener('submit',()=>{ const v=input.value.trim(); print('> '+v); if(v==='help') print('help, list, open [slug], clear'); else if(v==='list') print('slugs: '+albums.join(', ')); else if(v.startsWith('open ')){ const s=v.split(' ')[1]; if(albums.includes(s)){ window.location.href=BASE+'albums/'+s; } else print('unknown slug'); } else if(v==='clear'){ term.innerHTML=''; } else print('unknown command'); input.value=''; });
   </script>
 </Base>
